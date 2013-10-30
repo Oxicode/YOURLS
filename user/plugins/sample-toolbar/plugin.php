@@ -28,7 +28,7 @@ function ozh_toolbar_add( $args ) {
 yourls_add_action( 'pre_redirect', 'ozh_toolbar_do' );
 function ozh_toolbar_do( $args ) {
 	global $ozh_toolbar;
-
+	
 	// Does this redirection need a toolbar?
 	if( !$ozh_toolbar['do'] )
 		return;
@@ -36,7 +36,7 @@ function ozh_toolbar_do( $args ) {
 	// Do we have a cookie stating the user doesn't want a toolbar?
 	if( isset( $_COOKIE['yourls_no_toolbar'] ) && $_COOKIE['yourls_no_toolbar'] == 1 )
 		return;
-
+	
 	// Get URL and page title
 	$url = $args[0];
 	$pagetitle = yourls_get_keyword_title( $ozh_toolbar['keyword'] );
@@ -47,7 +47,7 @@ function ozh_toolbar_do( $args ) {
 		yourls_edit_link_title( $ozh_toolbar['keyword'], $pagetitle );
 	}
 	$_pagetitle = htmlentities( yourls_get_remote_title( $url ) );
-
+	
 	$www = YOURLS_SITE;
 	$ver = YOURLS_VERSION;
 	$md5 = md5( $url );
@@ -59,13 +59,13 @@ function ozh_toolbar_do( $args ) {
 	if( $days == 0 ) {
 		$created = 'today';
 	} else {
-		$created = $days.' '.yourls_n( 'day', $days).' ago';
+		$created = $days.' '.yourls_plural( 'day', $days).' ago';
 	}
-
+	
 	// How many hits on the page
 	$hits = 1 + yourls_get_keyword_clicks( $ozh_toolbar['keyword'] );
-	$hits = $hits.' '.yourls_n( 'view', $hits);
-
+	$hits = $hits.' '.yourls_plural( 'view', $hits);
+	
 	// Plugin URL (no URL is hardcoded)
 	$pluginurl = YOURLS_PLUGINURL . '/'.yourls_plugin_basename( dirname(__FILE__) );
 
@@ -87,7 +87,7 @@ function ozh_toolbar_do( $args ) {
 		Short link powered by <a href="http://yourls.org/">YOURLS</a> and created $created. $hits.
 		<!-- $sql queries -->
 	</div>
-
+	
 	<div id="yourls-delicious">
 	<img src="http://static.delicious.com/img/delicious.small.gif" height="10" width="10" alt="Delicious" />
 	<a id="yourls-delicious-link" title="Bookmark on delicious" href="http://delicious.com/save" onclick="window.open('http://delicious.com/save?v=5&noui&jump=close&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title), 'delicious','toolbar=no,width=550,height=550'); return false;"> Bookmark on Delicious</a>
@@ -105,11 +105,11 @@ function ozh_toolbar_do( $args ) {
 		        "title": "$_pagetitle",
 		}-->
 	</div>
-
+	
 	<div id="yourls-selfclose">
 		<a id="yourls-once" href="$url" title="Close this toolbar">close</a>
 		<a id="yourls-always" href="$url" title="Never show me this toolbar again">close</a>
-
+		
 	</div>
 </div>
 
@@ -120,7 +120,7 @@ function ozh_toolbar_do( $args ) {
 </body>
 </html>
 PAGE;
-
+	
 	// Don't forget to die, to interrupt the flow of normal events (ie redirecting to long URL)
 	die();
 }
