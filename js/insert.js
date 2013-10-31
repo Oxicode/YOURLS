@@ -5,11 +5,11 @@ $(document).ready(function(){
 	});
 	add_link_reset();
 	$('#new_url_form').attr('action', 'javascript:add_link();');
-	
+
 	$('input.text').focus(function(){
 		$(this).select();
 	});
-	
+
 	// this one actually has little impact, the .hasClass('disabled') in each edit_link_display(), remove() etc... fires faster
 	$(document).on( 'click', 'a.button', function() {
 		if( $(this).hasClass('disabled') ) {
@@ -40,6 +40,9 @@ function add_link() {
 				zebra_table();
 				increment_counter();
 				toggle_share_fill_boxes( data.url.url, data.shorturl, data.url.title );
+
+				//Oxicode
+				extra_add()
 			}
 
 			add_link_reset();
@@ -77,6 +80,7 @@ function edit_link_display(id) {
 			$("#id-" + id).after( data.html );
 			$("#edit-url-"+ id).focus();
 			end_loading('#actions-'+id+' .button');
+			editar(id)
 		}
 	);
 }
@@ -138,7 +142,7 @@ function edit_link_save(id) {
 		{action:'edit_save', url: newurl, id: id, keyword: keyword, newkeyword: newkeyword, title: title, nonce: nonce },
 		function(data){
 			if(data.status == 'success') {
-			
+
 				if( data.url.title != '' ) {
 					var display_link = '<a href="' + data.url.url + '" title="' + data.url.url + '">' + data.url.display_title + '</a><br/><small><a href="' + data.url.url + '">' + data.url.display_url + '</a></small>';
 				} else {
@@ -153,6 +157,9 @@ function edit_link_save(id) {
 				});
 				$('#keyword_'+id).val( newkeyword );
 				$('#statlink-'+id).attr( 'href', data.url.shorturl+'+' );
+
+				//Mod Oxicode
+				$('#modal-' + id).modal('hide')
 			}
 			feedback(data.message, data.status);
 			end_loading("#edit-close-" + id);
@@ -197,6 +204,6 @@ function toggle_share(id) {
 	var longurl = link.attr('href');
 	var title = link.attr('title');
 	var shorturl = $('#keyword-'+id+' a:first').attr('href');
-	
+
 	toggle_share_fill_boxes( longurl, shorturl, title );
 }
