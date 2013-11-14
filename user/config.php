@@ -8,13 +8,13 @@
  */
 
 /** MySQL database username */
-define( 'YOURLS_DB_USER', 'your db user name' );
+define( 'YOURLS_DB_USER', '' );
 
 /** MySQL database password */
-define( 'YOURLS_DB_PASS', 'your db password' );
+define( 'YOURLS_DB_PASS', '' );
 
 /** The name of the database for YOURLS */
-define( 'YOURLS_DB_NAME', 'yourls' );
+define( 'YOURLS_DB_NAME', 'yourls_upc' );
 
 /** MySQL hostname.
  ** If using a non standard port, specify it like 'hostname:port', eg. 'localhost:9999' or '127.0.0.1:666' */
@@ -29,16 +29,17 @@ define( 'YOURLS_DB_PREFIX', 'yourls_' );
 
 /** YOURLS installation URL -- all lowercase and with no trailing slash.
  ** If you define it to "http://site.com", don't use "http://www.site.com" in your browser (and vice-versa) */
-define( 'YOURLS_SITE', 'http://site.com' );
+define( 'YOURLS_SITE', 'http://upc.pe' );
+define( 'YOURLS_SITE_NAME', 'UPC.PE' );
 
 /** Timezone GMT offset */
-define( 'YOURLS_HOURS_OFFSET', 0 ); 
+define( 'YOURLS_HOURS_OFFSET', 0 );
 
 /** YOURLS language or "locale".
  ** Change this setting to "localize" YOURLS (use a translation instead of the default English). A corresponding .mo file
  ** must be installed in the user/language directory.
  ** See http://yourls.org/translations for more information */
-define( 'YOURLS_LANG', '' ); 
+define( 'YOURLS_LANG', 'es_ES' );
 
 /** Allow multiple short URLs for a same long URL
  ** Set to true to have only one pair of shortURL/longURL (default YOURLS behavior)
@@ -51,33 +52,33 @@ define( 'YOURLS_UNIQUE_URLS', true );
 define( 'YOURLS_PRIVATE', true );
 
 /** A random secret hash used to encrypt cookies. You don't have to remember it, make it long and complicated. Hint: copy from http://yourls.org/cookie **/
-define( 'YOURLS_COOKIEKEY', 'modify this text with something random' );
+define( 'YOURLS_COOKIEKEY', '456789dfsadjnk34328xc02105' );
 
 /** Username(s) and password(s) allowed to access the site. Passwords either in plain text or as encrypted hashes
  ** YOURLS will auto encrypt plain text passwords in this file
  ** Read http://yourls.org/userpassword for more information */
 $yourls_user_passwords = array(
-	'username' => 'password',
-	'username2' => 'password2'	// You can have one or more 'login'=>'password' lines
-	);
+	'oxicode' => 'phpass:!2a!08!plaaWVFEUBlGfgXQg/eeoOYuDQbIF4S9EjFLqWVAYXaI6fjs..FSG' /* Password encrypted by YOURLS */ ,
+	// You can have one or more 'login'=>'password' lines
+);
 
 /** Debug mode to output some internal information
  ** Default is false for live site. Enable when coding or before submitting a new issue */
-define( 'YOURLS_DEBUG', false );
-	
+define( 'YOURLS_DEBUG', true );
+
 /*
  ** URL Shortening settings
  */
 
 /** URL shortening method: 36 or 62 */
-define( 'YOURLS_URL_CONVERT', 36 );
+define( 'YOURLS_URL_CONVERT', 62 );
 /*
  * 36: generates all lowercase keywords (ie: 13jkm)
  * 62: generates mixed case keywords (ie: 13jKm or 13JKm)
  * Stick to one setting. It's best not to change after you've started creating links.
  */
 
-/** 
+/**
 * Reserved keywords (so that generated URLs won't match them)
 * Define here negative, unwanted or potentially misleading keywords.
 */
